@@ -1,24 +1,24 @@
 <?php return array (
   'root' => 
   array (
-    'pretty_version' => '1.0.0+no-version-set',
-    'version' => '1.0.0.0',
+    'pretty_version' => '0.0.17.x-dev',
+    'version' => '0.0.17.9999999-dev',
     'aliases' => 
     array (
     ),
-    'reference' => NULL,
+    'reference' => '2b49e4fff306b2e155902e9f7bb542926845ccfd',
     'name' => '__root__',
   ),
   'versions' => 
   array (
     '__root__' => 
     array (
-      'pretty_version' => '1.0.0+no-version-set',
-      'version' => '1.0.0.0',
+      'pretty_version' => '0.0.17.x-dev',
+      'version' => '0.0.17.9999999-dev',
       'aliases' => 
       array (
       ),
-      'reference' => NULL,
+      'reference' => '2b49e4fff306b2e155902e9f7bb542926845ccfd',
     ),
     'container-interop/container-interop' => 
     array (
