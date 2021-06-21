@@ -2,10 +2,15 @@
 
 namespace App\Services\Area;
 
+use App\App\Database;
+
 class GetAllAreas
 {
-    public function __invoke($db): array
+    public function __invoke(): array
     {
+        $db = new Database();
+        $db = $db->connect();
+        
         try {
             $sql = "SELECT * FROM areas";
 
