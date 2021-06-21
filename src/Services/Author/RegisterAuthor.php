@@ -2,6 +2,7 @@
 
 namespace App\Services\Author;
 
+use App\App\Database;
 use App\Models\AuthorModel;
 
 class RegisterAuthor
@@ -13,8 +14,11 @@ class RegisterAuthor
         $this->author = new AuthorModel($params);
     }
 
-    public function __invoke($db): array
+    public function __invoke(): array
     {
+        $db = new Database();
+        $db = $db->connect();
+
         try {
             $sql =
             "INSERT INTO autores (

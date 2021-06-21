@@ -4,21 +4,15 @@ namespace App\Controllers;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use Psr\Container\ContainerInterface;
 
 use App\Services\Category\GetAllCategories;
 
-class CategoryController extends BaseController
+class CategoryController
 {
-    public function __construct(ContainerInterface $container)
-    {
-        parent::__construct($container);
-    }
-    
-    public function getAll(Request $request, Response $response, array $args): Response
+    public function getAll(Request $request, Response $response): Response
     {
         $getAllCategories = new GetAllCategories();
-        $response->getBody()->write(json_encode($getAllCategories($this->container->get('db'))));
+        $response->getBody()->write(json_encode($getAllCategories()));
         return $response;
     }
 }

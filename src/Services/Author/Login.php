@@ -2,6 +2,7 @@
 
 namespace App\Services\Author;
 
+use App\App\Database;
 use App\Models\AuthorModel;
 
 class Login
@@ -14,8 +15,11 @@ class Login
         $this->author = new AuthorModel($newParams);
     }
 
-    public function __invoke($db): array
+    public function __invoke(): array
     {
+        $db = new Database();
+        $db = $db->connect();
+
         try {
             $sql =
                 "SELECT * FROM autores
