@@ -5,7 +5,9 @@ require __DIR__ . '/Config.php';
 
 $app = new \Slim\App(['settings' => $config]);
 
-require __DIR__ . '/Container.php';
+require __DIR__ . '/Config.php';
+
+require __DIR__ . '/Database.php';
 
 require __DIR__ . '/Router.php';
 

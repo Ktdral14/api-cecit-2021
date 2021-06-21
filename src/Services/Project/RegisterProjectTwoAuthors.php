@@ -3,6 +3,7 @@
 namespace App\Services\Project;
 
 use App\App\Constants;
+use App\App\Database;
 use App\Models\AssessorModel;
 use App\Models\AuthorModel;
 use App\Models\ProjectModel;
@@ -68,8 +69,11 @@ class RegisterProjectTwoAuthors
         ));
     }
 
-    public function __invoke($db): array
+    public function __invoke(): array
     {
+        $db = new Database();
+        $db = $db->connect();
+
         try {
 
             $projectImageDirectory =

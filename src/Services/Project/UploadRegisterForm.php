@@ -3,6 +3,7 @@
 namespace App\Services\Project;
 
 use App\App\Constants;
+use App\App\Database;
 use App\Models\AuthorModel;
 
 
@@ -20,8 +21,11 @@ class UploadRegisterForm
         $this->registerForm = $params['register_form'];
     }
 
-    public function __invoke($db): array
+    public function __invoke(): array
     {
+        $db = new Database();
+        $db = $db->connect();
+
         try {
 
             $registerFormDirectory =
