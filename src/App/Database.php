@@ -8,16 +8,10 @@ class Database
 {
 
     // COTACYT
-    // private $host   = 'plataforma.cotacyt.gob.mx';
-    // private $user   = 'innovacion';
-    // private $pass   = 'W4HndVUhHBcZ343Z';
-    // private $dbname = 'sistema_evaluacion';
-
-    // ACM / TECDEVS
-    private $host   = 'mante.hosting.acm.org';
-    private $user   = 'mantehostingacm_kt';
-    private $pass   = 'QWERTYKtdral_014';
-    private $dbname = 'mantehostingacm_CotacytXXI';
+    private $host   = 'plataforma.cotacyt.gob.mx';
+    private $user   = 'innovacion';
+    private $pass   = 'W4HndVUhHBcZ343Z';
+    private $dbname = 'sistema_evaluacion';
 
     function connect()
     {
