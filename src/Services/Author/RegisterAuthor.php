@@ -39,7 +39,8 @@ class RegisterAuthor
                     localidad,
                     escuela,
                     facebook,
-                    twitter
+                    twitter,
+                    nivel_ingles
                 ) VALUES (
                     :id_proyectos,
                     :nombre,
@@ -58,7 +59,8 @@ class RegisterAuthor
                     :localidad,
                     :escuela,
                     :facebook,
-                    :twitter
+                    :twitter,
+                    :nivel_ingles
                 )";
 
             $stmt = $db->prepare($sql);
@@ -81,6 +83,7 @@ class RegisterAuthor
             $stmt->bindParam(':escuela', $this->author->school);
             $stmt->bindParam(':facebook', $this->author->facebook);
             $stmt->bindParam(':twitter', $this->author->twitter);
+            $stmt->bindParam(':nivel_ingles', $this->author->englishLevel);
 
             $stmt->execute();
 

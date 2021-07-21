@@ -38,7 +38,8 @@ class RegisterFirstAuthor
                     localidad,
                     escuela,
                     facebook,
-                    twitter
+                    twitter,
+                    nivel_ingles
                 ) VALUES (
                     :nombre,
                     :ape_pat,
@@ -56,11 +57,12 @@ class RegisterFirstAuthor
                     :localidad,
                     :escuela,
                     :facebook,
-                    :twitter
+                    :twitter,
+                    :nivel_ingles
                 )";
 
             $stmt = $db->prepare($sql);
-            
+
             $stmt->bindParam(':nombre', $this->author->name);
             $stmt->bindParam(':ape_pat', $this->author->firstLastName);
             $stmt->bindParam(':ape_mat', $this->author->secondLastName);
@@ -78,6 +80,7 @@ class RegisterFirstAuthor
             $stmt->bindParam(':escuela', $this->author->school);
             $stmt->bindParam(':facebook', $this->author->facebook);
             $stmt->bindParam(':twitter', $this->author->twitter);
+            $stmt->bindParam(':nivel_ingles', $this->author->englishLevel);
 
             $stmt->execute();
 

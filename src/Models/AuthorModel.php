@@ -23,6 +23,7 @@ class AuthorModel
     public string $school;
     public string $facebook;
     public string $twitter;
+    public string $englishLevel;
 
     public function __construct(array $authorParams)
     {
@@ -45,5 +46,6 @@ class AuthorModel
         $this->school = $authorParams['school'] ?? '';
         $this->facebook = $authorParams['facebook'] ?? '';
         $this->twitter = $authorParams['twitter'] ?? '';
+        $this->twitter = $authorParams['english_level'] ?? '';
     }
 }
