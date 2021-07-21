@@ -46,6 +46,6 @@ class AuthorModel
         $this->school = $authorParams['school'] ?? '';
         $this->facebook = $authorParams['facebook'] ?? '';
         $this->twitter = $authorParams['twitter'] ?? '';
-        $this->twitter = $authorParams['english_level'] ?? '';
+        $this->englishLevel = $authorParams['levelEnglish'] ?? '';
     }
 }
