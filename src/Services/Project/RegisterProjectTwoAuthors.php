@@ -55,7 +55,8 @@ class RegisterProjectTwoAuthors
             'locality' => $params['second_author']['locality'],
             'school' => $params['second_author']['school'],
             'facebook' => $params['second_author']['facebook'],
-            'twitter' => $params['second_author']['twitter']
+            'twitter' => $params['second_author']['twitter'],
+            'levelEnglish' => $params['second_author']['levelEnglish']
         ));
         $this->project = new ProjectModel(array(
             'project_name' => $params['project_name'],
