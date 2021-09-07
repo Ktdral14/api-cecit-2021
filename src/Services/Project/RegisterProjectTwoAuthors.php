@@ -192,6 +192,7 @@ class RegisterProjectTwoAuthors
             $stmt->bindParam(':escuela_autor', $this->secondAuthor->school);
             $stmt->bindParam(':facebook_autor', $this->secondAuthor->facebook);
             $stmt->bindParam(':twitter_autor', $this->secondAuthor->twitter);
+            $stmt->bindParam(':nivel_ingles_autor', $this->secondAuthor->englishLevel);
             $stmt->bindParam(':id_autores_in', $this->firstAuthor->authorId);
             $stmt->bindParam(':id_proyectos_in', $this->project->projectId);
 

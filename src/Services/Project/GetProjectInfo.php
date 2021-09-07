@@ -86,7 +86,8 @@ class GetProjectInfo
                 localidad AS localidad_segundo_autor,
                 escuela AS escuela_segundo_autor,
                 facebook AS facebook_segundo_autor,
-                twitter AS twitter_segundo_autor
+                twitter AS twitter_segundo_autor,
+                nivel_ingles AS nivel_ingles_segundo_autor
             FROM autores 
             WHERE id_autores != :id_autores
             AND id_proyectos = :id_proyectos";
