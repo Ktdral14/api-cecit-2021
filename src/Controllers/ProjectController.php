@@ -8,8 +8,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use App\Services\Project\RegisterProjectOneAuthor;
 use App\Services\Project\RegisterProjectTwoAuthors;
 use App\Services\Project\UploadRegisterForm;
-use App\Services\Project\GetProjectInfoOneAuthor;
-use App\Services\Project\GetProjectInfoTwoAuthors;
+use App\Services\Project\GetProjectInfo;
 
 class ProjectController
 {
@@ -45,18 +44,11 @@ class ProjectController
         return $response;
     }
 
-    public function getInfoOneAuthor(Request $request, Response $response): Response
+    public function getProjectInfo(Request $request, Response $response): Response
     {
         $params = (array)$request->getParsedBody();
-        $getProjectInfoOneAuthor = new GetProjectInfoOneAuthor($params);
-        $response->getBody()->write(json_encode($getProjectInfoOneAuthor()));
-        return $response;
-    }
-    public function getInfoTwoAuthors(Request $request, Response $response): Response
-    {
-        $params = (array)$request->getParsedBody();
-        $getProjectInfoTwoAuthors = new GetProjectInfoTwoAuthors($params);
-        $response->getBody()->write(json_encode($getProjectInfoTwoAuthors()));
+        $getProjectInfo = new GetProjectInfo($params);
+        $response->getBody()->write(json_encode($getProjectInfo()));
         return $response;
     }
 }

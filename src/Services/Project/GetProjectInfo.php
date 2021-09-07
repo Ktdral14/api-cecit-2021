@@ -9,7 +9,7 @@ use App\Models\AuthorModel;
 use App\Models\ProjectModel;
 
 
-class GetProjectInfoTwoAuthors
+class GetProjectInfo
 {
     private AssessorModel $assessor;
     private AuthorModel $firstAuthor;
@@ -99,7 +99,7 @@ class GetProjectInfoTwoAuthors
 
             $secondAuthor = $stmt->fetch(\PDO::FETCH_ASSOC);
 
-            $result = array_merge($result, $secondAuthor);
+            $result['segundo_autor'] = $secondAuthor;
 
             return [
                 'error'  => false,
