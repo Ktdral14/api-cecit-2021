@@ -140,7 +140,7 @@ class RegisterProjectOneAuthor
             $stmt->bindParam(':descripcion_asesor_in', $this->assessor->description, \PDO::PARAM_STR);
             $stmt->bindParam(':img_ine_in', $this->assessor->ineImageUrl, \PDO::PARAM_STR);
             $stmt->bindParam(':id_autores_in', $this->firstAuthor->authorId, \PDO::PARAM_INT);
-            $stmt->bindParam('::id_proyectos_in', $this->project->projectId, \PDO::PARAM_INT);
+            $stmt->bindParam(':id_proyectos_in', $this->project->projectId, \PDO::PARAM_INT);
 
             $stmt->execute();
 
