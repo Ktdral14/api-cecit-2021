@@ -58,6 +58,7 @@ class RegisterProjectTwoAuthors
             'twitter' => $params['second_author']['twitter']
         ));
         $this->project = new ProjectModel(array(
+            'project_id' => $params['project_id'],
             'project_name' => $params['project_name'],
             'project_description' => $params['project_description'],
             'id_sedes' => $params['id_sedes'],
@@ -103,7 +104,7 @@ class RegisterProjectTwoAuthors
             $this->assessor->ineImageUrl = $assessorINEImageDirectory . DIRECTORY_SEPARATOR . $assessorINEImageFilename;
 
             $sql =
-                "CALL SP_insert_project_m2 (
+            "CALL SP_insert_project_m2 (
                     :id_categorias_in,
                     :id_modalidades_in,
                     :id_sedes_in,
@@ -145,7 +146,8 @@ class RegisterProjectTwoAuthors
                     :escuela_autor,
                     :facebook_autor,
                     :twitter_autor,
-                    :id_autores_in
+                    :id_autores_in,
+                    :id_proyectos_in
                 )";
 
             $stmt = $db->prepare($sql);
@@ -190,6 +192,7 @@ class RegisterProjectTwoAuthors
             $stmt->bindParam(':facebook_autor', $this->secondAuthor->facebook);
             $stmt->bindParam(':twitter_autor', $this->secondAuthor->twitter);
             $stmt->bindParam(':id_autores_in', $this->firstAuthor->authorId);
+            $stmt->bindParam('::id_proyectos_in', $this->project->projectId);
 
             $stmt->execute();
 

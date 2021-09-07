@@ -40,6 +40,7 @@ class RegisterProjectOneAuthor
             'author_id' => $params['author_id']
         ));
         $this->project = new ProjectModel(array(
+            'project_id' => $params['project_id'],
             'project_name' => $params['project_name'],
             'project_description' => $params['project_description'],
             'id_sedes' => $params['id_sedes'],
@@ -108,7 +109,8 @@ class RegisterProjectOneAuthor
                     :twitter_in,
                     :descripcion_asesor_in,
                     :img_ine_in,
-                    :id_autores_in
+                    :id_autores_in,
+                    :id_proyectos_in
                 )";
 
             $stmt = $db->prepare($sql);
@@ -138,6 +140,7 @@ class RegisterProjectOneAuthor
             $stmt->bindParam(':descripcion_asesor_in', $this->assessor->description, \PDO::PARAM_STR);
             $stmt->bindParam(':img_ine_in', $this->assessor->ineImageUrl, \PDO::PARAM_STR);
             $stmt->bindParam(':id_autores_in', $this->firstAuthor->authorId, \PDO::PARAM_INT);
+            $stmt->bindParam('::id_proyectos_in', $this->project->projectId, \PDO::PARAM_INT);
 
             $stmt->execute();
 
