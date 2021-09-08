@@ -27,18 +27,6 @@ class UploadRegisterForm
         $db = $db->connect();
 
         try {
-
-            $registerFormDirectory =
-                DIRECTORY_SEPARATOR
-                . 'register-form';
-            $registerFormExtension = pathinfo($this->registerForm->getClientFilename(), PATHINFO_EXTENSION);
-            $registerFormBasename =
-                'author-'
-                . $this->author->authorId;
-            $registerFormFilename = sprintf('%s.%0.8s', $registerFormBasename, $registerFormExtension);
-            $this->registerForm->moveTo(Constants::FILE_UPLOAD_BASE_DIR . $registerFormDirectory . DIRECTORY_SEPARATOR . $registerFormFilename);
-            $registerFormUrl = $registerFormDirectory . DIRECTORY_SEPARATOR . $registerFormFilename;
-
             $sql = "SELECT 
                         proyectos.id_proyectos AS id_proyectos,
                         sedes.sede AS sede,
@@ -71,6 +59,15 @@ class UploadRegisterForm
             }
 
             $folio = "CECIT2021-" . substr($campus, 0, 3) . "-" . substr($category, 0, 3) . "-" . str_repeat("0", $repetitions) . $projectId;
+
+            $registerFormDirectory =
+                DIRECTORY_SEPARATOR
+                . 'register-form';
+            $registerFormExtension = pathinfo($this->registerForm->getClientFilename(), PATHINFO_EXTENSION);
+            $registerFormBasename = $folio;
+            $registerFormFilename = sprintf('%s.%0.8s', $registerFormBasename, $registerFormExtension);
+            $this->registerForm->moveTo(Constants::FILE_UPLOAD_BASE_DIR . $registerFormDirectory . DIRECTORY_SEPARATOR . $registerFormFilename);
+            $registerFormUrl = $registerFormDirectory . DIRECTORY_SEPARATOR . $registerFormFilename;
 
             $sql =
                 "UPDATE proyectos SET 

@@ -4,25 +4,25 @@ namespace App\Models;
 
 class AssessorModel
 {
-    public int $assessorId;
-    public string $name;
-    public string $firstLastName;
-    public string $secondLastName;
-    public string $address;
-    public string $suburb;
-    public string $postalCode;
-    public string $curp;
-    public string $rfc;
-    public string $phone;
-    public string $email;
-    public string $city;
-    public string $locality;
-    public string $school;
-    public string $facebook;
-    public string $twitter;
-    public string $description;
+    public $assessorId;
+    public $name;
+    public $firstLastName;
+    public $secondLastName;
+    public $address;
+    public $suburb;
+    public $postalCode;
+    public $curp;
+    public $rfc;
+    public $phone;
+    public $email;
+    public $city;
+    public $locality;
+    public $school;
+    public $facebook;
+    public $twitter;
+    public $description;
     public $ineImage;
-    public string $ineImageUrl;
+    public $ineImageUrl;
 
     public function __construct(array $assessorParams)
     {

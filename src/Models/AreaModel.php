@@ -4,8 +4,8 @@ namespace App\Models;
 
 class AreaModel
 {
-    public int $areaId;
-    public string $area;
+    public $areaId;
+    public $area;
 
     public function __construct(array $areaParams)
     {

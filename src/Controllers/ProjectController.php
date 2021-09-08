@@ -9,6 +9,7 @@ use App\Services\Project\RegisterProjectOneAuthor;
 use App\Services\Project\RegisterProjectTwoAuthors;
 use App\Services\Project\UploadRegisterForm;
 use App\Services\Project\GetProjectInfo;
+use App\Services\Project\UploadImage;
 
 class ProjectController
 {
@@ -49,6 +50,16 @@ class ProjectController
         $params = (array)$request->getParsedBody();
         $getProjectInfo = new GetProjectInfo($params);
         $response->getBody()->write(json_encode($getProjectInfo()));
+        return $response;
+    }
+
+    public function uploadImage(Request $request, Response $response): Response
+    {
+        $params = (array)$request->getParsedBody();
+        $files = $request->getUploadedFiles();
+        $params['project_image'] = $files['project_image'] ?? '';
+        $uploadImage = new UploadImage($params);
+        $response->getBody()->write(json_encode($uploadImage()));
         return $response;
     }
 }
