@@ -16,8 +16,8 @@ class ProjectController
     {
         $params = (array)$request->getParsedBody();
         $files = $request->getUploadedFiles();
-        $params['image_ine'] = $files['image_ine'];
-        $params['project_image'] = $files['project_image'];
+        $params['image_ine'] = $files['image_ine'] ?? '';
+        $params['project_image'] = $files['project_image'] ?? '';
         $registerProjectOneAuthor = new RegisterProjectOneAuthor($params);
         $response->getBody()->write(json_encode($registerProjectOneAuthor()));
         return $response;
@@ -27,8 +27,8 @@ class ProjectController
     {
         $params = (array)$request->getParsedBody();
         $files = $request->getUploadedFiles();
-        $params['image_ine'] = $files['image_ine'];
-        $params['project_image'] = $files['project_image'];
+        $params['image_ine'] = $files['image_ine'] ?? '';
+        $params['project_image'] = $files['project_image'] ?? '';
         $registerProjectTwoAuthors = new RegisterProjectTwoAuthors($params);
         $response->getBody()->write(json_encode($registerProjectTwoAuthors()));
         return $response;

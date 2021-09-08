@@ -78,31 +78,34 @@ class RegisterProjectTwoAuthors
 
         try {
 
-            $projectImageDirectory =
-                DIRECTORY_SEPARATOR
-                . 'projects';
-            $projectImageExtension = pathinfo($this->project->image->getClientFilename(), PATHINFO_EXTENSION);
-            $projectImageBasename =
-                'project-'
-                . $this->firstAuthor->authorId
-                . '-'
-                . $this->project->campusId
-                . '-'
-                . $this->project->categoryId;
-            $projectImageFilename = sprintf('%s.%0.8s', $projectImageBasename, $projectImageExtension);
-            $this->project->image->moveTo(Constants::FILE_UPLOAD_BASE_DIR . $projectImageDirectory . DIRECTORY_SEPARATOR . $projectImageFilename);
-            $this->project->imageUrl = $projectImageDirectory . DIRECTORY_SEPARATOR . $projectImageFilename;
-
-            $assessorINEImageDirectory =
-                DIRECTORY_SEPARATOR
-                . 'assessors-ine';
-            $assessorINEImageExtension = pathinfo($this->assessor->ineImage->getClientFilename(), PATHINFO_EXTENSION);
-            $assessorINEImageBasename =
-                'assessor-'
-                . $this->assessor->curp;
-            $assessorINEImageFilename = sprintf('%s.%0.8s', $assessorINEImageBasename, $assessorINEImageExtension);
-            $this->assessor->ineImage->moveTo(Constants::FILE_UPLOAD_BASE_DIR. $assessorINEImageDirectory . DIRECTORY_SEPARATOR . $assessorINEImageFilename);
-            $this->assessor->ineImageUrl = $assessorINEImageDirectory . DIRECTORY_SEPARATOR . $assessorINEImageFilename;
+            if ($this->project->image != "") {
+                $projectImageDirectory = DIRECTORY_SEPARATOR . 'projects';
+                $projectImageExtension = pathinfo($this->project->image->getClientFilename(), PATHINFO_EXTENSION);
+                $projectImageBasename =
+                    'project-'
+                    . $this->firstAuthor->authorId
+                    . '-'
+                    . $this->project->campusId
+                    . '-'
+                    . $this->project->categoryId;
+                $projectImageFilename = sprintf('%s.%0.8s', $projectImageBasename, $projectImageExtension);
+                $this->project->image->moveTo(Constants::FILE_UPLOAD_BASE_DIR . $projectImageDirectory . DIRECTORY_SEPARATOR . $projectImageFilename);
+                $this->project->imageUrl = $projectImageDirectory . DIRECTORY_SEPARATOR . $projectImageFilename;
+            } else {
+                $this->project->imageUrl = "";
+            }
+            if ($this->assessor->ineImage != "") {
+                $assessorINEImageDirectory = DIRECTORY_SEPARATOR . 'assessors-ine';
+                $assessorINEImageExtension = pathinfo($this->assessor->ineImage->getClientFilename(), PATHINFO_EXTENSION);
+                $assessorINEImageBasename =
+                    'assessor-'
+                    . $this->assessor->curp;
+                $assessorINEImageFilename = sprintf('%s.%0.8s', $assessorINEImageBasename, $assessorINEImageExtension);
+                $this->assessor->ineImage->moveTo(Constants::FILE_UPLOAD_BASE_DIR . $assessorINEImageDirectory . DIRECTORY_SEPARATOR . $assessorINEImageFilename);
+                $this->assessor->ineImageUrl = $assessorINEImageDirectory . DIRECTORY_SEPARATOR . $assessorINEImageFilename;
+            } else {
+                $this->assessor->ineImageUrl = "";
+            }
 
             $sql =
             "CALL SP_insert_project_m2 (
@@ -147,6 +150,7 @@ class RegisterProjectTwoAuthors
                     :escuela_autor,
                     :facebook_autor,
                     :twitter_autor,
+                    :nivel_ingles_autor,
                     :id_autores_in,
                     :id_proyectos_in
                 )";

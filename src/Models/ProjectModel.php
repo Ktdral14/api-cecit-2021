@@ -4,17 +4,17 @@ namespace App\Models;
 
 class ProjectModel
 {
-    public int $projectId;
-    public int $assessorId;
-    public int $categoryId;
-    public int $modalityId;
-    public int $campusId;
-    public int $areaId;
-    public string $name;
-    public string $description;
-    public string $url;
+    public $projectId;
+    public $assessorId;
+    public $categoryId;
+    public $modalityId;
+    public $campusId;
+    public $areaId;
+    public $name;
+    public $description;
+    public $url;
     public $image;
-    public string $imageUrl;
+    public $imageUrl;
 
     public function __construct(array $projectParams)
     {
