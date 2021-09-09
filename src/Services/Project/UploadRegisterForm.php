@@ -58,7 +58,14 @@ class UploadRegisterForm
                 $repetitions--;
             }
 
-            $folio = "CECIT2021-" . substr($campus, 0, 3) . "-" . substr($category, 0, 3) . "-" . str_repeat("0", $repetitions) . $projectId;
+            if ($campus === "El Mante") {
+                $campus = "MAN";
+            }
+            if ($campus === "Nuevo Laredo") {
+                $campus = "LAR";
+            }
+
+            $folio = "CECIT2021-" . strtoupper(substr($campus, 0, 3)) . "-" . strtoupper(substr($category, 0, 3)) . "-" . str_repeat("0", $repetitions) . $projectId;
 
             $registerFormDirectory =
                 DIRECTORY_SEPARATOR
@@ -87,7 +94,10 @@ class UploadRegisterForm
             return [
                 'error'  => false,
                 'status' => 200,
-                'data' => array('message' => 'Se ha subido el documento con éxito')
+                'data' => array(
+                    'message' => 'Se ha subido el documento con éxito',
+                    'folio' => $folio
+                )
             ];
         } catch (\Exception $exception) {
             return [
