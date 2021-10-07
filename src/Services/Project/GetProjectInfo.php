@@ -55,7 +55,8 @@ class GetProjectInfo
                 proyectos.nombre AS nombre_proyecto,
                 proyectos.descripcion AS descripcion_proyecto,
                 proyectos.url AS url_proyecto,
-                proyectos.imagen AS imagen_proyecto
+                proyectos.imagen AS imagen_proyecto,
+                proyectos.folio AS folio_proyecto
             FROM autores 
             JOIN proyectos 
                 ON autores.id_proyectos = proyectos.id_proyectos
