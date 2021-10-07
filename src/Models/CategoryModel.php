@@ -4,8 +4,8 @@ namespace App\Models;
 
 class CategoryModel
 {
-    public int $categoryId;
-    public string $category;
+    public $categoryId;
+    public $category;
 
     public function __construct(array $categoryParams)
     {

@@ -34,8 +34,7 @@ class RegisterProjectTwoAuthors
             'school_institute' => $params['school_institute'],
             'facebook' => $params['facebook'],
             'twitter' => $params['twitter'],
-            'participation_description' => $params['participation_description'],
-            'image_ine' => $params['image_ine']
+            'participation_description' => $params['participation_description']
         ));
         $this->firstAuthor = new AuthorModel(array(
             'author_id' => $params['author_id']
@@ -59,14 +58,14 @@ class RegisterProjectTwoAuthors
             'levelEnglish' => $params['second_author']['levelEnglish']
         ));
         $this->project = new ProjectModel(array(
+            'project_id' => $params['project_id'],
             'project_name' => $params['project_name'],
             'project_description' => $params['project_description'],
             'id_sedes' => $params['id_sedes'],
             'id_category' => $params['id_category'],
             'url_video' => $params['url_video'],
             'id_area' => $params['id_area'],
-            'id_modality' => $params['id_modality'],
-            'project_image' => $params['project_image']
+            'id_modality' => $params['id_modality']
         ));
     }
 
@@ -76,35 +75,8 @@ class RegisterProjectTwoAuthors
         $db = $db->connect();
 
         try {
-
-            $projectImageDirectory =
-                DIRECTORY_SEPARATOR
-                . 'projects';
-            $projectImageExtension = pathinfo($this->project->image->getClientFilename(), PATHINFO_EXTENSION);
-            $projectImageBasename =
-                'project-'
-                . $this->firstAuthor->authorId
-                . '-'
-                . $this->project->campusId
-                . '-'
-                . $this->project->categoryId;
-            $projectImageFilename = sprintf('%s.%0.8s', $projectImageBasename, $projectImageExtension);
-            $this->project->image->moveTo(Constants::FILE_UPLOAD_BASE_DIR . $projectImageDirectory . DIRECTORY_SEPARATOR . $projectImageFilename);
-            $this->project->imageUrl = $projectImageDirectory . DIRECTORY_SEPARATOR . $projectImageFilename;
-
-            $assessorINEImageDirectory =
-                DIRECTORY_SEPARATOR
-                . 'assessors-ine';
-            $assessorINEImageExtension = pathinfo($this->assessor->ineImage->getClientFilename(), PATHINFO_EXTENSION);
-            $assessorINEImageBasename =
-                'assessor-'
-                . $this->assessor->curp;
-            $assessorINEImageFilename = sprintf('%s.%0.8s', $assessorINEImageBasename, $assessorINEImageExtension);
-            $this->assessor->ineImage->moveTo(Constants::FILE_UPLOAD_BASE_DIR. $assessorINEImageDirectory . DIRECTORY_SEPARATOR . $assessorINEImageFilename);
-            $this->assessor->ineImageUrl = $assessorINEImageDirectory . DIRECTORY_SEPARATOR . $assessorINEImageFilename;
-
             $sql =
-                "CALL SP_insert_project_m2 (
+            "CALL SP_insert_project_m2 (
                     :id_categorias_in,
                     :id_modalidades_in,
                     :id_sedes_in,
@@ -112,7 +84,6 @@ class RegisterProjectTwoAuthors
                     :nombre_in,
                     :descripcion_in,
                     :url_in,
-                    :imagen_in,
                     @result,
                     :nombre_asesor_in,
                     :ape_pat_in,
@@ -130,7 +101,6 @@ class RegisterProjectTwoAuthors
                     :facebook_in,
                     :twitter_in,
                     :descripcion_asesor_in,
-                    :img_ine_in,
                     :nombre_autor,
                     :ape_pat_autor,
                     :ape_mat_autor,
@@ -146,7 +116,9 @@ class RegisterProjectTwoAuthors
                     :escuela_autor,
                     :facebook_autor,
                     :twitter_autor,
-                    :id_autores_in
+                    :nivel_ingles_autor,
+                    :id_autores_in,
+                    :id_proyectos_in
                 )";
 
             $stmt = $db->prepare($sql);
@@ -157,7 +129,6 @@ class RegisterProjectTwoAuthors
             $stmt->bindParam(':nombre_in', $this->project->name);
             $stmt->bindParam(':descripcion_in', $this->project->description);
             $stmt->bindParam(':url_in', $this->project->url);
-            $stmt->bindParam(':imagen_in', $this->project->imageUrl);
             $stmt->bindParam(':nombre_asesor_in', $this->assessor->name);
             $stmt->bindParam(':ape_pat_in', $this->assessor->firstLastName);
             $stmt->bindParam(':ape_mat_in', $this->assessor->secondLastName);
@@ -174,7 +145,6 @@ class RegisterProjectTwoAuthors
             $stmt->bindParam(':facebook_in', $this->assessor->facebook);
             $stmt->bindParam(':twitter_in', $this->assessor->twitter);
             $stmt->bindParam(':descripcion_asesor_in', $this->assessor->description);
-            $stmt->bindParam(':img_ine_in', $this->assessor->ineImageUrl);
             $stmt->bindParam(':nombre_autor', $this->secondAuthor->name);
             $stmt->bindParam(':ape_pat_autor', $this->secondAuthor->firstLastName);
             $stmt->bindParam(':ape_mat_autor', $this->secondAuthor->secondLastName);
@@ -190,7 +160,9 @@ class RegisterProjectTwoAuthors
             $stmt->bindParam(':escuela_autor', $this->secondAuthor->school);
             $stmt->bindParam(':facebook_autor', $this->secondAuthor->facebook);
             $stmt->bindParam(':twitter_autor', $this->secondAuthor->twitter);
+            $stmt->bindParam(':nivel_ingles_autor', $this->secondAuthor->englishLevel);
             $stmt->bindParam(':id_autores_in', $this->firstAuthor->authorId);
+            $stmt->bindParam(':id_proyectos_in', $this->project->projectId);
 
             $stmt->execute();
 

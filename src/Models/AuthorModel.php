@@ -4,26 +4,26 @@ namespace App\Models;
 
 class AuthorModel
 {
-    public int $authorId;
-    public int $projectId;
-    public string $name;
-    public string $firstLastName;
-    public string $secondLastName;
-    public string $address;
-    public string $suburb;
-    public string $postalCode;
-    public string $curp;
-    public string $rfc;
-    public string $phone;
-    public string $username;
-    public string $email;
-    public string $password;
-    public string $city;
-    public string $locality;
-    public string $school;
-    public string $facebook;
-    public string $twitter;
-    public string $englishLevel;
+    public $authorId;
+    public $projectId;
+    public $name;
+    public $firstLastName;
+    public $secondLastName;
+    public $address;
+    public $suburb;
+    public $postalCode;
+    public $curp;
+    public $rfc;
+    public $phone;
+    public $username;
+    public $email;
+    public $password;
+    public $city;
+    public $locality;
+    public $school;
+    public $facebook;
+    public $twitter;
+    public $englishLevel;
 
     public function __construct(array $authorParams)
     {

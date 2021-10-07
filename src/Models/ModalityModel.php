@@ -4,8 +4,8 @@ namespace App\Models;
 
 class ModalityModel
 {
-    public int $modalityId;
-    public string $modality;
+    public $modalityId;
+    public $modality;
 
     public function __construct(array $modalityParams)
     {

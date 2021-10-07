@@ -33,21 +33,20 @@ class RegisterProjectOneAuthor
             'school_institute' => $params['school_institute'],
             'facebook' => $params['facebook'],
             'twitter' => $params['twitter'],
-            'participation_description' => $params['participation_description'],
-            'image_ine' => $params['image_ine']
+            'participation_description' => $params['participation_description']
         ));
         $this->firstAuthor = new AuthorModel(array(
             'author_id' => $params['author_id']
         ));
         $this->project = new ProjectModel(array(
+            'project_id' => $params['project_id'],
             'project_name' => $params['project_name'],
             'project_description' => $params['project_description'],
             'id_sedes' => $params['id_sedes'],
             'id_category' => $params['id_category'],
             'url_video' => $params['url_video'],
             'id_area' => $params['id_area'],
-            'id_modality' => $params['id_modality'],
-            'project_image' => $params['project_image']
+            'id_modality' => $params['id_modality']
         ));
     }
 
@@ -57,29 +56,6 @@ class RegisterProjectOneAuthor
         $db = $db->connect();
 
         try {
-
-            $projectImageDirectory = DIRECTORY_SEPARATOR . 'projects';
-            $projectImageExtension = pathinfo($this->project->image->getClientFilename(), PATHINFO_EXTENSION);
-            $projectImageBasename =
-                'project-'
-                . $this->firstAuthor->authorId
-                . '-'
-                . $this->project->campusId
-                . '-'
-                . $this->project->categoryId;
-            $projectImageFilename = sprintf('%s.%0.8s', $projectImageBasename, $projectImageExtension);
-            $this->project->image->moveTo(Constants::FILE_UPLOAD_BASE_DIR . $projectImageDirectory . DIRECTORY_SEPARATOR . $projectImageFilename);
-            $this->project->imageUrl = $projectImageDirectory . DIRECTORY_SEPARATOR . $projectImageFilename;
-
-            $assessorINEImageDirectory = DIRECTORY_SEPARATOR . 'assessors-ine';
-            $assessorINEImageExtension = pathinfo($this->assessor->ineImage->getClientFilename(), PATHINFO_EXTENSION);
-            $assessorINEImageBasename =
-                'assessor-'
-                . $this->assessor->curp;
-            $assessorINEImageFilename = sprintf('%s.%0.8s', $assessorINEImageBasename, $assessorINEImageExtension);
-            $this->assessor->ineImage->moveTo(Constants::FILE_UPLOAD_BASE_DIR . $assessorINEImageDirectory . DIRECTORY_SEPARATOR . $assessorINEImageFilename);
-            $this->assessor->ineImageUrl = $assessorINEImageDirectory . DIRECTORY_SEPARATOR . $assessorINEImageFilename;
-
             $sql =
                 "CALL SP_insert_project_m1 (
                     :id_categorias_in,
@@ -89,7 +65,6 @@ class RegisterProjectOneAuthor
                     :nombre_in,
                     :descripcion_in,
                     :url_in,
-                    :imagen_in,
                     @result,
                     :nombre_asesor_in,
                     :ape_pat_in,
@@ -107,8 +82,8 @@ class RegisterProjectOneAuthor
                     :facebook_in,
                     :twitter_in,
                     :descripcion_asesor_in,
-                    :img_ine_in,
-                    :id_autores_in
+                    :id_autores_in,
+                    :id_proyectos_in
                 )";
 
             $stmt = $db->prepare($sql);
@@ -119,7 +94,6 @@ class RegisterProjectOneAuthor
             $stmt->bindParam(':nombre_in', $this->project->name, \PDO::PARAM_STR);
             $stmt->bindParam(':descripcion_in', $this->project->description, \PDO::PARAM_STR);
             $stmt->bindParam(':url_in', $this->project->url, \PDO::PARAM_STR);
-            $stmt->bindParam(':imagen_in', $this->project->imageUrl, \PDO::PARAM_STR);
             $stmt->bindParam(':nombre_asesor_in', $this->assessor->name, \PDO::PARAM_STR);
             $stmt->bindParam(':ape_pat_in', $this->assessor->firstLastName, \PDO::PARAM_STR);
             $stmt->bindParam(':ape_mat_in', $this->assessor->secondLastName, \PDO::PARAM_STR);
@@ -136,8 +110,8 @@ class RegisterProjectOneAuthor
             $stmt->bindParam(':facebook_in', $this->assessor->facebook, \PDO::PARAM_STR);
             $stmt->bindParam(':twitter_in', $this->assessor->twitter, \PDO::PARAM_STR);
             $stmt->bindParam(':descripcion_asesor_in', $this->assessor->description, \PDO::PARAM_STR);
-            $stmt->bindParam(':img_ine_in', $this->assessor->ineImageUrl, \PDO::PARAM_STR);
             $stmt->bindParam(':id_autores_in', $this->firstAuthor->authorId, \PDO::PARAM_INT);
+            $stmt->bindParam(':id_proyectos_in', $this->project->projectId, \PDO::PARAM_INT);
 
             $stmt->execute();
 
