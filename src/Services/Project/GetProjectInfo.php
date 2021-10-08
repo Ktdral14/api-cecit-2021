@@ -60,7 +60,7 @@ class GetProjectInfo
             FROM autores 
             JOIN proyectos 
                 ON autores.id_proyectos = proyectos.id_proyectos
-            JOIN asesores
+            LEFT JOIN asesores
                 ON proyectos.id_asesores = asesores.id_asesores
             WHERE id_autores = :id_autores";
 
